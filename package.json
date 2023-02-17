@@ -9,7 +9,8 @@
     "test": "yarn run compile && node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "postinstall": "yarn run compile",
     "compile": "tsc",
-    "start": "yarn run compile && node ./dist/server.js"
+    "start-dev": "yarn run compile && node ./dist/server.js",
+    "start": "node ./dist/server.js"
   },
   "keywords": [],
   "author": "",
