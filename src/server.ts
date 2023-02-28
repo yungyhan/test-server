@@ -1,6 +1,8 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import type { ListenOptions } from "net";
+import { testElephant } from "./elephantSqlClient.js";
+import { blah } from "./something.js";
 
 // Schema definition
 export const typeDefs = `
@@ -20,14 +22,17 @@ export const typeDefs2 = `
 // Resolver map
 export const resolvers = {
   Query: {
-    hello: (_, { name }) => `Helloxxxx ${name}!`,
+    hello: (_: any, { name }: { name: string }) => {
+      testElephant();
+      return blah;
+    },
   },
 };
 
 // Resolver map
 export const resolvers2 = {
   Query: {
-    helloxxx: (_, { name }) => `123 ${name}!`,
+    helloxxx: (_: any, { name }: { name: string }) => `123 ${name}!`,
   },
 };
 

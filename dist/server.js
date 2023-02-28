@@ -1,5 +1,7 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
+import { testElephant } from "./elephantSqlClient.js";
+import { blah } from "./something.js";
 // Schema definition
 export const typeDefs = `
   #graphql
@@ -16,7 +18,10 @@ export const typeDefs2 = `
 // Resolver map
 export const resolvers = {
     Query: {
-        hello: (_, { name }) => `Helloxxxx ${name}!`,
+        hello: (_, { name }) => {
+            testElephant();
+            return blah;
+        },
     },
 };
 // Resolver map
