@@ -1,8 +1,8 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import type { ListenOptions } from "net";
-import { testElephant } from "./elephantSqlClient.js";
-import { blah } from "./something.js";
+import { resolversHome, typeDefsHome } from "./homeModule.js";
+import { logPantry } from "./pantryClient.js";
 
 // Schema definition
 export const typeDefs = `
@@ -12,27 +12,13 @@ export const typeDefs = `
   }
 `;
 
-export const typeDefs2 = `
-  #graphql
-  type Query {
-    helloxxx(name: String): String!
-  }
-`;
-
 // Resolver map
 export const resolvers = {
   Query: {
     hello: (_: any, { name }: { name: string }) => {
-      testElephant();
-      return blah;
+      logPantry();
+      return "hello" + name;
     },
-  },
-};
-
-// Resolver map
-export const resolvers2 = {
-  Query: {
-    helloxxx: (_: any, { name }: { name: string }) => `123 ${name}!`,
   },
 };
 
@@ -41,8 +27,8 @@ export const createApolloServer = async (
   listenOptions: ListenOptions = { port: 4000 }
 ) => {
   const server = new ApolloServer({
-    typeDefs: [typeDefs, typeDefs2],
-    resolvers: [resolvers, resolvers2],
+    typeDefs: [typeDefs, typeDefsHome],
+    resolvers: [resolvers, resolversHome],
   });
 
   const { url } = await startStandaloneServer(server, {
@@ -52,11 +38,3 @@ export const createApolloServer = async (
   // return the server instance and the url the server is listening on
   return { server, url };
 };
-
-// For simplicity we create our server in this file,
-// but in a real app you'd export `createApolloServer` into
-// another file and call it elsewhere.
-if (process.env.NODE_ENV !== "test") {
-  const { url } = await createApolloServer();
-  console.log(`🚀 Query endpoint ready at ${url}`);
-}

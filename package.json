@@ -9,20 +9,20 @@
     "test": "npm run compile && node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "postinstall": "npm run compile",
     "compile": "tsc",
-    "start-dev": "npm run compile && node --es-module-specifier-resolution=node ./dist/server.js",
-    "start": "node --es-module-specifier-resolution=node ./dist/server.js"
+    "start-dev": "npm run compile && node --es-module-specifier-resolution=node ./dist/index.js",
+    "start": "node --es-module-specifier-resolution=node ./dist/index.js"
   },
   "keywords": [],
   "author": "",
   "dependencies": {
     "@apollo/server": "^4.0.0",
+    "dotenv": "^16.0.3",
     "graphql": "^16.6.0",
-    "pg": "^8.9.0"
+    "pantry-cloud": "^0.1.8"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",
     "@types/node": "^17.0.45",
-    "@types/pg": "^8.6.6",
     "jest": "^27.5.1",
     "supertest": "^6.2.2",
     "ts-jest": "^27.1.5",
